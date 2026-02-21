@@ -1,0 +1,8 @@
+name: Alex
+super: true
+id: 51bd3274-9a37-4575-92af-62d9d9fe9812
+password_hash: $2y$12$avVbLFgSRMFWYUz8vvdOn.4seqlkjo.RmiBtwe3WvEEfhlsjopic2
+preferences:
+  collections:
+    pages:
+      view: tree
