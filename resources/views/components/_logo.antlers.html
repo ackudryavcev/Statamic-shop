@@ -5,9 +5,10 @@
 
 <!-- /components/_logo.antlers.html -->
 <a
-    aria-label="{{ trans:strings.home }}"
+    aria-label="{{ config:app:name }} home"
     href="{{ site:url }}"
+    class="inline-flex items-center text-xl font-black uppercase tracking-[0.16em] text-neutral-950 transition hover:text-primary {{ class }}"
 >
-    <img src="/visuals/statamic-peak-logo.svg" class="select-none {{ class }}" width="{{ width }}" alt="" aria-hidden="true"/>
+    Shop<span class="text-primary">.</span>
 </a>
 <!-- End: /components/_logo.antlers.html -->

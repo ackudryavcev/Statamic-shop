@@ -1,0 +1,7 @@
+title: Products
+template: default
+layout: layout
+revisions: false
+sort_dir: asc
+taxonomies:
+  - product_categories
