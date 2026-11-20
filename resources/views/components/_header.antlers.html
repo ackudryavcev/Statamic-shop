@@ -1,0 +1,72 @@
+{{#
+    @name Header
+    @desc Site header with desktop navigation and a mobile overlay menu.
+#}}
+
+<header
+    x-data="{ menuOpen: false }"
+    class="sticky top-0 z-50 border-b border-neutral-200 bg-white"
+    @keyup.escape.stop.prevent="menuOpen = false"
+>
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-12">
+        {{ partial:components/logo width="120" }}
+
+        <nav class="hidden md:block" aria-label="Main navigation">
+            <ul class="flex items-center gap-8">
+                {{ nav:main max_depth="1" select="title|url" }}
+                    {{ unless no_results }}
+                        <li>
+                            <a href="{{ url }}" class="text-sm font-semibold transition hover:text-primary {{ is_current || is_parent ? 'text-primary' : 'text-neutral-950' }}" {{ is_current ?= 'aria-current="page"' }}>
+                                {{ title }}
+                            </a>
+                        </li>
+                    {{ /unless }}
+                {{ /nav:main }}
+            </ul>
+        </nav>
+
+        <button
+            type="button"
+            class="relative z-50 grid size-11 place-items-center rounded-full border border-neutral-200 text-neutral-950 transition hover:border-primary hover:text-primary md:hidden"
+            @click="menuOpen = !menuOpen"
+            :aria-expanded="menuOpen"
+            aria-controls="mobile-main-menu"
+            :aria-label="menuOpen ? 'Close menu' : 'Open menu'"
+        >
+            <span class="sr-only" x-text="menuOpen ? 'Close menu' : 'Open menu'"></span>
+            <span class="absolute h-0.5 w-5 bg-current transition-transform" :class="menuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1.5'"></span>
+            <span class="absolute h-0.5 w-5 bg-current transition-opacity" :class="menuOpen ? 'opacity-0' : 'opacity-100'"></span>
+            <span class="absolute h-0.5 w-5 bg-current transition-transform" :class="menuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1.5'"></span>
+        </button>
+    </div>
+
+    <div
+        id="mobile-main-menu"
+        x-cloak
+        x-show="menuOpen"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        x-trap.inert.noscroll="menuOpen"
+        class="fixed inset-0 z-40 flex flex-col bg-white px-6 pb-10 pt-28 md:hidden sm:px-10"
+        aria-label="Mobile main navigation"
+    >
+        <nav aria-label="Main navigation">
+            <ul class="flex flex-col divide-y divide-neutral-200">
+                {{ nav:main max_depth="1" select="title|url" }}
+                    {{ unless no_results }}
+                        <li>
+                            <a href="{{ url }}" @click="menuOpen = false" class="block py-5 text-2xl font-bold tracking-tight transition hover:text-primary {{ is_current || is_parent ? 'text-primary' : 'text-neutral-950' }}" {{ is_current ?= 'aria-current="page"' }}>
+                                {{ title }}
+                            </a>
+                        </li>
+                    {{ /unless }}
+                {{ /nav:main }}
+            </ul>
+        </nav>
+        <p class="mt-auto text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">{{ config:app:name }}</p>
+    </div>
+</header>

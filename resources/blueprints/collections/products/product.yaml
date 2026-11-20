@@ -1,0 +1,60 @@
+title: Product
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: Product details
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              listable: true
+              display: Product name
+              validate: required
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+          -
+            handle: price
+            field:
+              type: float
+              required: true
+              display: Price
+              validate: required|min:0
+          -
+            handle: compare_at_price
+            field:
+              type: float
+              display: Compare-at price
+              instructions: Optional original price for showing a discount.
+              validate: nullable|min:0
+          -
+            handle: badge
+            field:
+              type: text
+              display: Badge
+              instructions: Optional card label, such as New or Best seller.
+          -
+            handle: color_name
+            field:
+              type: text
+              display: Color name
+          -
+            handle: color_hex
+            field:
+              type: text
+              display: Color swatch (hex)
+              validate: nullable|regex:/^#[0-9A-Fa-f]{6}$/
+          -
+            handle: image
+            field:
+              container: images
+              max_files: 1
+              type: assets
+              display: Product image
+              instructions: Optional. A branded placeholder is shown when no image is selected.

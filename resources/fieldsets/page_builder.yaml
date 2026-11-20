@@ -45,3 +45,10 @@ fields:
               fields:
                 -
                   import: cards
+            products:
+              display: 'Product grid'
+              instructions: 'Display all published products from the Products collection.'
+              icon: shopping-bag
+              fields:
+                -
+                  import: product_grid
