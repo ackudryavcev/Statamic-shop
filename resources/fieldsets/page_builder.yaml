@@ -11,6 +11,53 @@ fields:
       display: 'Page builder'
       button_label: 'Add block'
       sets:
+        promotional:
+          display: Promotional
+          instructions: 'Promotional content blocks.'
+          icon: megaphone
+          sets:
+            promo_banner:
+              display: 'Promo banner'
+              instructions: 'A full-width banner with centered text and an image or color background.'
+              icon: megaphone
+              fields:
+                -
+                  handle: heading
+                  field:
+                    type: text
+                    localizable: true
+                    validate: required
+                    display: Heading
+                -
+                  handle: text
+                  field: common.text_plain
+                  config:
+                    display: Text
+                -
+                  handle: background_image
+                  field: common.image
+                  config:
+                    display: 'Background image'
+                -
+                  handle: background_color
+                  field:
+                    type: color
+                    localizable: true
+                    default: '#C9232C'
+                    display: 'Background color'
+                    instructions: 'Used when no background image is selected.'
+                -
+                  handle: text_color
+                  field:
+                    type: select
+                    localizable: true
+                    default: white
+                    display: 'Text color'
+                    options:
+                      white: White
+                      black: Black
+                -
+                  import: background_overlay
         image_and_text:
           display: 'Image and text'
           instructions: 'Image and text based blocks.'

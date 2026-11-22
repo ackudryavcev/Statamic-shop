@@ -1,0 +1,15 @@
+title: 'Background overlay'
+fields:
+  -
+    handle: background_overlay
+    field:
+      type: select
+      localizable: true
+      default: 40
+      display: 'Background overlay'
+      instructions: 'Adds a black overlay to improve text readability over the background.'
+      options:
+        none: 'No overlay'
+        20: '20%'
+        40: '40%'
+        50: '50%'

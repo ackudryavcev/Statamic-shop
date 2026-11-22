@@ -55,7 +55,13 @@ RUN mkdir -p \
         database \
     && chmod -R 775 storage bootstrap/cache
 
-RUN php artisan package:discover --ansi
+RUN php artisan package:discover --ansi \
+    && php artisan vendor:publish \
+        --tag=statamic-cp \
+        --tag=statamic-frontend \
+        --tag=statamic-peak-tools \
+        --force \
+        --no-interaction
 
 EXPOSE 10000
 
