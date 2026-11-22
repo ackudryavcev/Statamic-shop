@@ -59,4 +59,4 @@ RUN php artisan package:discover --ansi
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "php artisan statamic:stache:refresh && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+CMD ["sh", "-c", "if [ -f /etc/secrets/.env ]; then cp /etc/secrets/.env /app/.env; fi && touch database/database.sqlite && php artisan statamic:stache:refresh && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
