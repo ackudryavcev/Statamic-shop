@@ -1,6 +1,28 @@
 title: 'Product grid'
 fields:
   -
+    handle: product_source
+    field:
+      type: select
+      display: Product source
+      instructions: Choose whether this grid uses products from Statamic or the DummyJSON API.
+      options:
+        collection: Statamic collection
+        api: DummyJSON API
+      default: collection
+      clearable: false
+      required: true
+  -
+    handle: api_url
+    field:
+      type: text
+      input_type: url
+      display: API URL
+      instructions: Optional API endpoint. Defaults to DummyJSON products.
+      default: 'https://dummyjson.com/products?limit=20'
+      if:
+        product_source: equals api
+  -
     handle: eyebrow
     field:
       type: text
