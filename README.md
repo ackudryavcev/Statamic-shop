@@ -1,4 +1,6 @@
-# site.ext
+# Statamic Shop
+
+Live site: [statamic-shop.onrender.com](https://statamic-shop.onrender.com/)
 
 ## Installation instructions
 
