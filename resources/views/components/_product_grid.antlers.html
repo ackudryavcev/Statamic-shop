@@ -91,6 +91,9 @@
                             {{ if compare_at_price }}<p class="mt-1 text-sm text-neutral-400 line-through">€{{ compare_at_price }}</p>{{ /if }}
                         </div>
                     </div>
+                    <button type="button" class="mt-4 rounded-full bg-neutral-950 px-5 py-2 text-sm font-semibold text-white hover:bg-primary" data-id="{{ id }}" data-title="{{ title | entities }}" data-price="{{ price }}"
+                        @click="$store.cart.add('collection', $el.dataset)">Add to cart</button>
+                    <span class="ml-2 text-sm font-semibold" role="status" x-text="((qty) => qty ? qty + ' in cart' : '')($store.cart.quantity('collection', '{{ id }}'))"></span>
                 </article>
             </li>
             {{ /collection:products }}
@@ -115,6 +118,8 @@
                                     <p class="mt-1 text-sm text-neutral-400 line-through" x-text="formatPrice(product.price / (1 - product.discountPercentage / 100))"></p>
                                 </div>
                             </div>
+                            <button type="button" class="mt-4 rounded-full bg-neutral-950 px-5 py-2 text-sm font-semibold text-white hover:bg-primary" @click="$store.cart.add(endpoint, product)">Add to cart</button>
+                        <span class="ml-2 text-sm font-semibold" role="status" x-text="((qty) => qty ? qty + ' in cart' : '')($store.cart.quantity(endpoint, product.id))"></span>
                         </article>
                     </li>
                 </template>

@@ -2,7 +2,7 @@
 
 ## Project overview
 
-- This is a Statamic 6 and Laravel 12 website. Page content lives in `content/`, and Antlers templates live in `resources/views/`.
+- This is a Statamic 6 and Laravel 13 website. Page content lives in `content/`, and Antlers templates live in `resources/views/`.
 - Tailwind CSS 4 and Vite build the styles. The main stylesheet is `resources/css/site.css`.
 - The project palette uses red accents, black text, and white surfaces. Theme colors are configured in `resources/css/site.css`.
 - The project uses the Statamic Peak starter kit. Check existing partials, fieldsets, and page builder patterns before changing shared components.
