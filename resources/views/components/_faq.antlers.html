@@ -1,0 +1,13 @@
+<section class="mx-auto w-full max-w-3xl px-6 pb-16 sm:px-10">
+    {{ collection:faq sort="title:asc" }}
+        {{ if first }}
+            <h2 class="mb-5 text-2xl font-bold text-neutral-950">{{ block:heading or 'Frequently asked questions' }}</h2>
+        {{ /if }}
+        <details class="faq-item border-b border-neutral-200">
+            <summary class="cursor-pointer py-4 font-semibold text-neutral-950 hover:text-primary">{{ title | entities }}</summary>
+            <div class="overflow-hidden">
+                <p class="whitespace-pre-line pb-5 leading-7 text-neutral-700">{{ answer | entities }}</p>
+            </div>
+        </details>
+    {{ /collection:faq }}
+</section>

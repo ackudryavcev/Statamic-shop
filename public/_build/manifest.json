@@ -32,7 +32,7 @@
     "name": "lodash-es"
   },
   "resources/css/site.css": {
-    "file": "assets/site-BvJC28Ox.css",
+    "file": "assets/site-DGugdxLR.css",
     "src": "resources/css/site.css",
     "isEntry": true,
     "name": "site",
@@ -41,7 +41,7 @@
     ]
   },
   "resources/js/site.js": {
-    "file": "assets/site-DnjncX5j.js",
+    "file": "assets/site-DIxkgEj1.js",
     "name": "site",
     "src": "resources/js/site.js",
     "isEntry": true,

@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'stripe' => [
+        'test_secret' => env('STRIPE_TEST_SECRET_KEY'),
+        'shipping_countries' => explode(',', env('STRIPE_SHIPPING_COUNTRIES', 'NL,BE,DE,FR,GB,US')),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

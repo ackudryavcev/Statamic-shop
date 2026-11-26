@@ -39,12 +39,6 @@ Alpine.store('cart', {
         const key = this.key(source, id)
         return this.items.find(item => item.key === key)?.quantity ?? 0
     },
-    payWithTestMethod() {
-        if (!this.count) return null
-        const amount = this.money(this.total)
-        this.items = []
-        return amount
-    },
     add(source, product) {
         const key = this.key(source, product.id)
         const existing = this.items.find(item => item.key === key)
@@ -72,4 +66,86 @@ Alpine.store('cart', {
         return euro.format(cents / 100)
     },
 })
+Alpine.data('paymentConfirmation', () => ({
+    notice: 'Checking payment status…',
+    async init() {
+        const id = new URL(window.location.href).searchParams.get('checkout_session')
+        if (!id) {
+            this.notice = 'There is no payment to verify.'
+            return
+        }
+        try {
+            const response = await fetch('/checkout/test/' + encodeURIComponent(id), { headers: { Accept: 'application/json' } })
+            if (!response.ok) throw new Error()
+            const { cents } = await response.json()
+            const cart = this.$store.cart
+            const snapshotKey = 'stripe-cart:' + id
+            const purchased = JSON.parse(sessionStorage.getItem(snapshotKey) || '[]')
+            for (const line of purchased) {
+                const item = cart.items.find(item => item.key === line.key)
+                if (!item) continue
+                item.quantity -= line.quantity
+                if (item.quantity <= 0) cart.remove(item.key)
+            }
+            sessionStorage.removeItem(snapshotKey)
+            this.notice = 'Test payment successful · ' + cart.money(cents)
+        } catch {
+            this.notice = 'Payment status could not be verified. Refresh to try again.'
+        }
+    },
+}))
+
+Alpine.data('testCheckout', () => ({
+    busy: false,
+    notice: '',
+    init() {
+        const url = new URL(window.location.href)
+        if (url.pathname === '/foundation' && url.searchParams.has('checkout_session')) {
+            url.pathname = '/payment-confirmation'
+            window.location.replace(url)
+            return
+        }
+        if (!url.searchParams.has('checkout_cancelled')) return
+        this.$refs.cart.showModal()
+        this.notice = 'Checkout cancelled. Your cart is saved.'
+        url.searchParams.delete('checkout_cancelled')
+        history.replaceState(null, '', url)
+    },
+    async checkout() {
+        if (this.busy || !this.$store.cart.count) return
+        this.busy = true
+        this.notice = ''
+        try {
+            const items = this.$store.cart.items.map(item => ({ ...item }))
+            const cookie = document.cookie.split('; ').find(cookie => cookie.startsWith('XSRF-TOKEN='))
+            const response = await fetch('/checkout/test', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': decodeURIComponent(cookie?.slice(11) || ''),
+                },
+                body: JSON.stringify({ items }),
+            })
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({}))
+                if (error.message === 'Stripe test checkout is not configured.') {
+                    this.notice = 'Stripe test checkout is not configured yet. Your cart is saved.'
+                    return
+                }
+                this.notice = response.status === 503
+                    ? 'Stripe test checkout is unavailable. Please try again later.'
+                    : 'Could not start checkout. Refresh and try again.'
+                return
+            }
+            const { id, url } = await response.json()
+            sessionStorage.setItem('stripe-cart:' + id, JSON.stringify(items))
+            window.location.assign(url)
+        } catch {
+            this.notice = 'Could not reach checkout. Please try again.'
+        } finally {
+            this.busy = false
+        }
+    },
+}))
 Alpine.start()

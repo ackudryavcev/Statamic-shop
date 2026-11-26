@@ -92,6 +92,16 @@ fields:
               fields:
                 -
                   import: cards
+            faq:
+              display: FAQ
+              icon: text-formatting-initial-letter
+              fields:
+                -
+                  handle: heading
+                  field:
+                    type: text
+                    display: Heading
+                    default: Frequently asked questions
             products:
               display: 'Product grid'
               instructions: 'Display all published products from the Products collection.'
