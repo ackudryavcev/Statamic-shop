@@ -8,12 +8,6 @@ tabs:
         fields:
           -
             import: 'statamic-peak-tools::globals_browser_appearance_general_universal'
-      -
-        display: Theme
-        instructions: 'Configure universal theme meta tags.'
-        fields:
-          -
-            import: 'statamic-peak-tools::globals_browser_appearance_general_theme'
   favicons:
     display: Favicons
     sections:

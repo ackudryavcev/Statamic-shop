@@ -1,0 +1,31 @@
+{{# A focused temporary homepage, intentionally independent from the standard site navigation. #}}
+<!-- /holding.antlers.html -->
+<main class="relative isolate flex min-h-screen items-center overflow-hidden px-6 py-12 text-white sm:px-10 lg:px-16" id="content">
+    <div class="absolute inset-0 -z-20 bg-slate-950"></div>
+    <div class="absolute -left-36 top-0 -z-10 h-96 w-96 rounded-full bg-violet-600/30 blur-3xl"></div>
+    <div class="absolute -bottom-40 -right-20 -z-10 h-[32rem] w-[32rem] rounded-full bg-fuchsia-600/20 blur-3xl"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.055)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_50%,black,transparent)]"></div>
+
+    <div class="mx-auto w-full max-w-5xl">
+        <a class="inline-flex items-center gap-3 text-sm font-bold tracking-[0.18em] uppercase text-white no-underline" href="{{ site:url }}" aria-label="{{ config:app:name }}">
+            <span class="grid size-10 place-items-center rounded-xl bg-white text-lg font-bold tracking-normal text-slate-950 shadow-lg shadow-violet-950/40">{{ config:app:name | substr(0, 1) }}</span>
+            {{ config:app:name }}
+        </a>
+
+        <section class="mt-24 max-w-3xl sm:mt-32">
+            <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold tracking-[0.16em] uppercase text-violet-200 backdrop-blur-sm">
+                <span class="size-2 rounded-full bg-violet-300 shadow-[0_0_16px_3px_rgba(196,181,253,.6)]"></span>
+                Coming soon
+            </p>
+            <h1 class="max-w-3xl text-5xl font-bold tracking-tight text-balance sm:text-7xl lg:text-8xl">We’re creating something special.</h1>
+            <p class="mt-8 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">Our website is currently in the works. Check back soon for news, details, and everything you need to know.</p>
+        </section>
+
+        <div class="mt-16 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-white/15 pt-7 text-sm text-slate-400 sm:mt-24">
+            <span>© {{ now | format('Y') }} {{ config:app:name }}</span>
+            <span class="hidden size-1 rounded-full bg-slate-600 sm:block"></span>
+            <span>See you soon</span>
+        </div>
+    </div>
+</main>
+<!-- End: /holding.antlers.html -->

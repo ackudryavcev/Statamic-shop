@@ -28,4 +28,48 @@ window.productGrid = ({ source, endpoint }) => ({
 // Call Alpine.
 window.Alpine = Alpine
 Alpine.plugin([collapse, focus, morph, persist, precognition])
+const euro = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' })
+
+Alpine.store('cart', {
+    items: Alpine.$persist([]).as('statamic-shop.cart.v1'),
+    key(source, id) {
+        return JSON.stringify([source, String(id)])
+    },
+    quantity(source, id) {
+        const key = this.key(source, id)
+        return this.items.find(item => item.key === key)?.quantity ?? 0
+    },
+    payWithTestMethod() {
+        if (!this.count) return null
+        const amount = this.money(this.total)
+        this.items = []
+        return amount
+    },
+    add(source, product) {
+        const key = this.key(source, product.id)
+        const existing = this.items.find(item => item.key === key)
+        if (existing) {
+            existing.quantity++
+            return
+        }
+        this.items.push({
+            key,
+            title: product.title,
+            cents: Math.round(Number(product.price) * 100),
+            quantity: 1,
+        })
+    },
+    remove(key) {
+        this.items = this.items.filter(item => item.key !== key)
+    },
+    get count() {
+        return this.items.reduce((sum, item) => sum + item.quantity, 0)
+    },
+    get total() {
+        return this.items.reduce((sum, item) => sum + item.cents * item.quantity, 0)
+    },
+    money(cents) {
+        return euro.format(cents / 100)
+    },
+})
 Alpine.start()

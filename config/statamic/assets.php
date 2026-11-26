@@ -70,6 +70,11 @@ return [
         'cache' => false,
         'cache_path' => public_path('img'),
 
+        'permissions' => [
+            'directory' => 0755,
+            'file' => 0644,
+        ],
+
         /*
         |--------------------------------------------------------------------------
         | Image Manipulation Defaults

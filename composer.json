@@ -10,9 +10,9 @@
         "laravel"
     ],
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1",
+        "php": "^8.4",
+        "laravel/framework": "^13.0",
+        "laravel/tinker": "^3.0",
         "statamic/cms": "^6.0",
         "studio1902/statamic-peak-seo": "^10.0",
         "studio1902/statamic-peak-tools": "^9.0"
@@ -25,7 +25,7 @@
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.50",
+        "phpunit/phpunit": "^12.0",
         "spatie/laravel-ignition": "^2.9.1"
     },
     "autoload": {

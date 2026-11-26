@@ -1,0 +1,38 @@
+<div x-data="{ paidAmount: null }">
+    <button type="button" @click="paidAmount = null; $refs.cart.showModal()" aria-label="Open cart" :aria-label="'Open cart, items: ' + $store.cart.count" aria-haspopup="dialog" class="relative grid size-11 place-items-center rounded-full border border-neutral-200 hover:border-primary">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+            <path d="M2.05 2h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57L22.1 6H5.12"/>
+        </svg>
+        <span x-cloak x-show="$store.cart.count" x-text="$store.cart.count" aria-hidden="true" class="absolute -right-2 -top-1 rounded-full bg-primary px-1.5 text-xs font-bold text-white"></span>
+    </button>
+    <dialog x-ref="cart" aria-labelledby="cart-heading" class="m-auto max-h-[85dvh] w-[min(92vw,30rem)] rounded-xl bg-white p-6 text-neutral-950 shadow-xl backdrop:bg-black/50">
+        <div class="flex items-center justify-between gap-4">
+            <h2 id="cart-heading" class="text-2xl font-bold">Your cart</h2>
+            <button type="button" @click="$refs.cart.close()" class="px-2 py-1 text-sm underline">Close</button>
+        </div>
+        <p role="status" class="text-sm font-semibold" x-text="paidAmount ? 'Test payment successful · ' + paidAmount : ''"></p>
+        <p x-show="!$store.cart.count && !paidAmount" class="my-6">Your cart is empty.</p>
+        <ul class="my-4 divide-y divide-neutral-200">
+            <template x-for="item in $store.cart.items" :key="item.key">
+                <li class="py-3">
+                    <div class="flex justify-between gap-4 font-semibold">
+                        <span x-text="item.title"></span>
+                        <span x-text="$store.cart.money(item.cents * item.quantity)"></span>
+                    </div>
+                    <div class="mt-2 flex items-center gap-3 text-sm">
+                        <button type="button" :aria-label="'Decrease quantity of ' + item.title" :disabled="item.quantity <= 1" @click="item.quantity--" class="size-8 rounded border disabled:opacity-40">−</button>
+                        <span x-text="item.quantity"></span>
+                        <button type="button" :aria-label="'Increase quantity of ' + item.title" @click="item.quantity++" class="size-8 rounded border">+</button>
+                        <button type="button" @click="$store.cart.remove(item.key)" class="ml-auto underline">Remove</button>
+                    </div>
+                </li>
+            </template>
+        </ul>
+        <div x-show="$store.cart.count">
+            <p class="flex justify-between border-t border-neutral-200 py-4 font-bold">Total <span x-text="$store.cart.money($store.cart.total)"></span></p>
+            <button type="button" @click="paidAmount = $store.cart.payWithTestMethod()" class="w-full rounded-full bg-neutral-950 py-3 font-semibold text-white hover:bg-primary">Pay with test method</button>
+            <p class="mt-2 text-center text-sm text-neutral-600">Demo payment only. No money will be charged.</p>
+        </div>
+    </dialog>
+</div>
