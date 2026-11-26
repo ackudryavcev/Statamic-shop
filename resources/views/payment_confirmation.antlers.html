@@ -2,7 +2,7 @@
     <section x-data="paymentConfirmation" class="mx-auto max-w-3xl px-6 py-16 sm:px-10">
         <h1 class="text-3xl font-bold text-neutral-950">{{ title }}</h1>
         <p role="status" class="my-4 text-lg" x-text="notice"></p>
-        <a href="/foundation" class="font-semibold text-primary underline">Continue shopping</a>
+        <a href="{{ site:url }}" class="font-semibold text-primary underline">Continue shopping</a>
     </section>
     {{ page_builder scope="block" }}
         {{ partial src="page_builder/{type}" }}
